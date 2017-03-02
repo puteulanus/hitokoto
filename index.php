@@ -11,15 +11,15 @@ imagefill($im,0,0,$color);
 $pink  = ImageColorAllocate($im, 0 , 0 ,0);
 $red   = ImageColorAllocate($im, 255 , 0 ,0);
 $zise  = ImageColorAllocate($im, 0 , 255 ,0);
-$fontfile = "msyh.ttf";//雅黑字库
+$fontfile = dirname(__FILE__) . "/msyh.ttf";//雅黑字库
 //拆分换行
 $fontsize  = 20;
 $angle     = 0;
 $width     = 300;
 $YJH       = autowrap($fontsize, $angle, $fontfile, $YJH, $width);
 //打印文章内容
-ImageTTFText($im,$fontsize,$angle,50,130,$pink,$fontfile,$YJH);	
-ImageTTFText($im, 10,0,35,295,$pink,$fontfile,'感谢 http://hitokoto.us 提供API，Made by Puteulanus');
+@ImageTTFText($im,$fontsize,$angle,50,130,$pink,$fontfile,$YJH);	
+@ImageTTFText($im, 10,0,35,295,$pink,$fontfile,'感谢 http://hitokoto.us 提供API，Made by Puteulanus');
 Header("Content-type: image/png");
 Imagepng($im);
 ImageDestroy($im);
@@ -45,7 +45,7 @@ function autowrap($fontsize, $angle, $fontfile, $string, $width) {
 
 	foreach ($letter as $l) {
 		$teststr = $content." ".$l;
-		$testbox = imagettfbbox($fontsize, $angle, $fontfile, $teststr);
+		$testbox = @imagettfbbox($fontsize, $angle, $fontfile, $teststr);
 		// 判断拼接后的字符串是否超过预设的宽度
 		if (($testbox[2] > $width) && ($content !== "")) {
 			$content .= "\n";
